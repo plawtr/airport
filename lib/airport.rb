@@ -1,10 +1,14 @@
 require_relative "weather"
+require_relative "nato"
 
 class Airport
 
   include Weather
+  include Nato
 
   DEFAULT_CAPACITY = 10
+  INTRO = "shhhh."
+  OUTTRO = "Try again later. OVER. shhh"
 
   def initialize(options = {})        
     self.capacity = options.fetch(:capacity, capacity)
@@ -27,9 +31,9 @@ class Airport
   end
 
   def land(plane)
-    raise "GOLF-OSCAR BRAVO. You have not asked to land anything. OVER" if plane.nil?
-    raise "shhhh. GOLF-OSCAR BRAVO. At capacity. There is no more room for planes. Try again later. OVER." if full?
-    raise "shhhh. GOLF-OSCAR BRAVO. Stormy weather. Not cleared for landing. Try again later. OVER." if !cleared?
+    raise "#{INTRO} #{rand_nato}. You have not asked to land anything. #{OUTTRO}"  if plane.nil?
+    raise "#{INTRO} #{rand_nato}. At capacity. There is no more room for planes. #{OUTTRO}" if full?
+    raise "#{INTRO} #{rand_nato}. Stormy weather! Not cleared for landing. #{OUTTRO}" if !cleared?
     planes << plane
     plane.land
   end
@@ -43,9 +47,9 @@ class Airport
   end
 
   def takeoff(plane)
-    raise "GOLF-OSCAR BRAVO. You have not asked to takeoff anything." if plane.nil?
-    raise "shhhh. GOLF-OSCAR BRAVO. Not available for takeoff at this airport. Try again later. OVER." unless planes.include?(plane)
-    raise "shhhh. GOLF-OSCAR BRAVO. Stormy weather. Not cleared for takeoff. Try again later. OVER." if !cleared?
+    raise "#{INTRO} #{rand_nato}. You have not asked to takeoff anything. #{OUTTRO}" if plane.nil?
+    raise "#{INTRO} #{rand_nato}. Not available for takeoff at this airport. #{OUTTRO}" unless planes.include?(plane)
+    raise "#{INTRO} #{rand_nato}. Stormy weather! Not cleared for takeoff. #{OUTTRO}"  if !cleared?
     planes.delete(plane)
     plane.takeoff
   end

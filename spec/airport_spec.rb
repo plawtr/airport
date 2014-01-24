@@ -103,7 +103,7 @@ it "should be able to handle 6 circling planes in 6 capacity airport in changing
 			begin
 				gatwick.land(plane) 
 			rescue => e
-			 `say -v Albert #{e.message.to_s}`
+			 `say #{e.message.to_s}`
 				#puts e.message
 			end
 		end
@@ -117,7 +117,7 @@ it "should be able to handle 6 circling planes in 6 capacity airport in changing
 			begin 
 				gatwick.takeoff(plane)
 			rescue => e
-				`say -v Albert #{e.message.to_s}`
+				`say #{e.message.to_s}`
 				#puts e.message
 			end
 		end
