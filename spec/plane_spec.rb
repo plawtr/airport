@@ -15,4 +15,15 @@ describe Plane do
 		expect(plane).to be_flying 
 	end
 
+	it "can land" do
+		plane.land
+		expect(plane).not_to be_flying 
+	end
+
+	it "can tell if it is landed" do
+		plane.land
+		expect(plane.landed?).to be_true
+	end
+
+
 end

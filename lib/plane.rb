@@ -14,6 +14,16 @@ class Plane
 		@flying = true
 	end
 
+	def land
+	 	@flying = false
+	end
+
+	def landed?
+		!flying?
+	end
+
+
+
 
 end
 
