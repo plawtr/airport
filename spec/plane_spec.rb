@@ -10,5 +10,9 @@ describe Plane do
 
 	end
 
+	it "can take off" do
+		plane.takeoff
+		expect(plane).to be_flying 
+	end
 
 end
