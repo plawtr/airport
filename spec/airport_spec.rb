@@ -8,6 +8,8 @@ describe Airport do
 	let(:ba101)   {Plane.new}
 	let(:smallton) {Airport.new(capacity: 1)}
 
+# Be careful with the indentation!
+
 it "should initialize with a default value of landing spots (10)" do
 	expect(airport.capacity).to eq(10)
 end
@@ -22,9 +24,11 @@ end
 
 it "should be able to land a plane" do
 	expect(ba101.flying?).to be_true
-	heathrow.stub(:stormy?){false}
+	heathrow.stub(:stormy?){false} # all these stubs could go to the "before" block
+	expect(heathrow.plane_count).to eq(0)
 	heathrow.land(ba101)
 	expect(heathrow.plane_count).to eq(1)
+	expect(ba101).not_to be_flying
 end
 
 it "should not land a plane if asked to land nothing" do
@@ -59,6 +63,8 @@ it "should be able to land a plane" do
 end
 
 
+# Makes sense overall but this should have been
+# several tests, not one.
 it "should be able to takeoff a plane" do 
 	heathrow.stub(:stormy?){false}
 	heathrow.land(ba101)
@@ -103,6 +109,8 @@ it "should be able to handle 6 circling planes in 6 capacity airport in changing
 			begin
 				gatwick.land(plane) 
 			rescue => e
+				# I appreciate the fun but don't do it in real life :)
+				# The tests must run as quickly as possible
 				`say -v Whisper shhh Tower Lima Hotel Romeo. Ready for landing. OVER shhh`
 			 	`say #{e.message.to_s}`
 				#puts e.message
