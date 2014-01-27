@@ -3,9 +3,9 @@ require_relative "../lib/airport"
 describe Airport do 
 
 	let(:airport) {Airport.new}
-	let(:plane)   {Plane.new}
+	let(:plane) {Plane.new}
 	let(:heathrow) {Airport.new(capacity: 1000)}
-	let(:ba101)   {Plane.new}
+	let(:ba101) {Plane.new}
 	let(:smallton) {Airport.new(capacity: 1)}
 
 it "should initialize with a default value of landing spots (10)" do
@@ -25,6 +25,7 @@ it "should be able to land a plane" do
 	heathrow.stub(:stormy?){false}
 	heathrow.land(ba101)
 	expect(heathrow.plane_count).to eq(1)
+	expect(ba101).not_to be_flying
 end
 
 it "should not land a plane if asked to land nothing" do
@@ -103,9 +104,7 @@ it "should be able to handle 6 circling planes in 6 capacity airport in changing
 			begin
 				gatwick.land(plane) 
 			rescue => e
-				`say -v Whisper shhh Tower Lima Hotel Romeo. Ready for landing. OVER shhh`
-			 	`say #{e.message.to_s}`
-				#puts e.message
+			 	puts e.message
 			end
 		end
 		expect(plane).to be_landed
@@ -118,9 +117,7 @@ it "should be able to handle 6 circling planes in 6 capacity airport in changing
 			begin 
 				gatwick.takeoff(plane)
 			rescue => e
-				`say -v Whisper shhh Tower Lima Hotel Romeo. Ready for takeoff. OVER shhh`
-				`say #{e.message.to_s}`
-				#puts e.message
+				puts e.message
 			end
 		end
 		expect(plane).to be_flying
